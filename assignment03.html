@@ -1,0 +1,133 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 03</title>
+  </head>
+<body>
+
+  <ul id="source">
+    <li>北京空气质量：<b>90</b></li>
+    <li>上海空气质量：<b>70</b></li>
+    <li>天津空气质量：<b>80</b></li>
+    <li>广州空气质量：<b>50</b></li>
+    <li>深圳空气质量：<b>40</b></li>
+    <li>福州空气质量：<b>32</b></li>
+    <li>成都空气质量：<b>90</b></li>
+  </ul>
+
+  <ul id="resort">
+    <!-- 
+    <li>第一名：北京空气质量：<b>90</b></li>
+    <li>第二名：北京空气质量：<b>90</b></li>
+    <li>第三名：北京空气质量：<b>90</b></li>
+     -->
+
+  </ul>
+
+  <button id="sort-btn">排序</button>
+
+<script type="text/javascript">
+
+/**
+ * getData方法
+ * 读取id为source的列表，获取其中城市名字及城市对应的空气质量
+ * 返回一个数组，格式见函数中示例
+ */
+function getData(){
+
+  var sourceList = document.getElementById("source");
+
+  //获取所有b标签
+  var airList = document.getElementsByTagName("b");
+
+  //获取所有li标签
+  var cityList = document.getElementsByTagName("li");
+  
+  var data = new Array();
+  for(var i = 0; i < airList.length; i++){
+    for(var j = 0; j < 2; j++){
+      //先处理城市
+      var listStr = cityList[i].innerHTML.toString();
+      var cityName = listStr.substr(0,listStr.indexOf("空气质量"));
+      //document.write(cityName+"</br>");
+      //document.write(airList[i].innerHTML+"</br>");
+      
+      //这个数组中的每一个元素 都是一个新数组
+      //每个新数组长度2 第一个元素是城市，第二个元素是空气质量
+      data[i] = new Array(2);
+      //城市赋值给第一个 
+      data[i][0] = cityName;
+
+      //空气质量赋值给第二个
+      data[i][1] = airList[i].innerHTML;
+    }  
+ }
+
+  /*
+  data = [
+    ["北京", 90],
+    ["北京", 90]
+    ……
+  ]
+  */
+
+  return data;
+
+}
+
+//document.write(getData()[0]);
+
+/**
+ * sortAqiData
+ * 按空气质量对data进行从小到大的排序
+ * 返回一个排序后的数组
+ */
+function sortAqiData(data) {
+  data.sort(function (a, b){
+    return a[1] - b[1];
+  });
+  return data;
+}
+
+//document.write(sortAqiData(getData()));
+
+/**
+ * render
+ * 将排好序的城市及空气质量指数，输出显示到id位resort的列表中
+ * 格式见ul中的注释的部分
+ */
+function render(data) {
+  //创建文字数组
+  var listName = new Array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+
+  for(var i = 0; i<data.length; i++){
+    var newLi = document.createElement("li");
+    var newTxt = document.createTextNode("第" + listName[i+1] + "名：" + data[i][0] + "，" + data[i][1]);
+    newLi.appendChild(newTxt);
+    document.getElementById("resort").appendChild(newLi)
+  }
+}
+
+function btnHandle() {
+  var aqiData = getData();
+  aqiData = sortAqiData(aqiData);
+  render(aqiData);
+}
+
+function init() {
+
+  // 在这下面给sort-btn绑定一个点击事件，点击时触发btnHandle函数
+  var btn = document.getElementById("sort-btn");
+  btn.onclick = function() {
+  document.getElementById("source").style.display="none";
+  btnHandle();
+  }
+}
+
+
+init();
+
+</script>
+</body>
+</html>
