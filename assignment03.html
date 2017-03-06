@@ -103,7 +103,7 @@ function render(data) {
 
   for(var i = 0; i<data.length; i++){
     var newLi = document.createElement("li");
-    var newTxt = document.createTextNode("第" + listName[i+1] + "名：" + data[i][0] + "，" + data[i][1]);
+    var newTxt = document.createTextNode("第" + listName[i+1] + "名：" + data[i][0] + " - " + data[i][1]);
     newLi.appendChild(newTxt);
     document.getElementById("resort").appendChild(newLi)
   }
