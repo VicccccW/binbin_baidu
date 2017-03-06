@@ -32,6 +32,12 @@ var aqiData = [
   将空气质量指数大于60的城市显示到aqi-list的列表中
   */
 
+  //先将数组排序
+  //排序-降序, 第一个参数小于第二个参数，第一个参数应该位于第二参数之前
+  aqiData.sort(function (a, b) {
+    return b[1] - a[1];
+  });
+
   //二维数组每一个城市的质量 aqiData[i][1] 如果大于60 则将这个数组加入到一个新的filterData数组中
 
   function getList(source){
@@ -47,16 +53,18 @@ var aqiData = [
   //调用方法，得到筛选出的数组
   var cityList = getList(aqiData);
 
+  //创建文字数组
+  var listName = new Array('零', '一', '二', '三', '四', '五', '六', '七', '八', '九');
+
   //遍历数组，将数组的第i个元素cityList[0][0]和cityList[0][1]加入到第一个li标签中
   //打印 第i名:cityList[i][0]，cityList[i][1];
 
   for(var i = 0; i<cityList.length; i++){
     var newLi = document.createElement("li");
-    var newTxt = document.createTextNode("第" + (i+1) + "名：" + cityList[i][0] + "，" + cityList[i][1]);
+    var newTxt = document.createTextNode("第" + listName[i+1] + "名：" + cityList[i][0] + "，" + cityList[i][1]);
     newLi.appendChild(newTxt);
-    document.getElementById("aqi-list").appendChild(newLi)
+    document.getElementById("aqi-list").appendChild(newLi);
   }
-
 })();
 
 </script>
