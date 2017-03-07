@@ -46,7 +46,6 @@ function getData(){
   
   var data = new Array();
   for(var i = 0; i < airList.length; i++){
-    for(var j = 0; j < 2; j++){
       //先处理城市
       var listStr = cityList[i].innerHTML.toString();
       var cityName = listStr.substr(0,listStr.indexOf("空气质量"));
@@ -60,8 +59,7 @@ function getData(){
       data[i][0] = cityName;
 
       //空气质量赋值给第二个
-      data[i][1] = airList[i].innerHTML;
-    }  
+      data[i][1] = airList[i].innerHTML;  
  }
 
   /*
