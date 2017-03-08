@@ -1,0 +1,150 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 05</title>
+    <link type="text/css" rel="stylesheet" href="css/assignment05.css">
+  </head>
+<body>
+
+<div class="wrapper">
+  <div>
+    <label><span>请输入10-100一个数字：</span><input type="text" class="text" size="20"></label>
+  </div>
+  <div>
+    <span></span>
+    <button id="btn-left-in" class="left">左侧入</button>
+    <button id="btn-right-in" class="right">右侧入</button>
+  </div>
+  <div>
+    <span></span>
+    <button id="btn-left-out" class="left">左侧出</button>
+    <button id="btn-right-out" class="right">右侧出</button> 
+   </div>
+   <div>
+    <span></span>
+    <button id="sortNum">队列排序</button>
+   </div>
+</div>
+<div class="show">
+<ul id="box">
+</ul>
+</div>
+
+
+<script type="text/javascript">
+
+
+var reg = /\D/g;
+
+
+//限制输入10-100 的方法1. 设置按钮事件监听 2. 在点击按钮的时候进行if判断 
+
+
+var numArr = new Array(0);
+var enterNum = document.getElementsByTagName("input")[0];
+var leftBtnIn = document.getElementById("btn-left-in");
+var leftBtnOut = document.getElementById("btn-left-out");
+var rightBtnIn = document.getElementById("btn-right-in");
+var rightBtnOut = document.getElementById("btn-right-out");
+var box = document.getElementById("box");
+var sortBtn = document.getElementById("sortNum");
+
+//向数组的第一位增加一个内容 返回新数组
+function addFirst(arr){
+  arr.unshift(enterNum.value);
+  return arr;
+}
+
+//向数组的最后一位增加一个内容 返回新数组
+function addLast(arr){
+  arr.push(enterNum.value);
+  return arr;
+}
+
+function alertLen(arr){
+    if(arr.length>=60){
+    alert("注意：当前队列长度已超过60。")
+  }
+}
+
+function printArr(arr){
+  var content = "";
+  for(var i = 0; i<arr.length; i++){
+    content+="<li id='" + i + "' style = height:" + arr[i]*5 + "px; '>" + arr[i] + " </li>";
+  }
+  box.innerHTML = content;
+}
+
+//点击添加btn 有两个函数 一个是返回新数组 一个是打印数组的每一个元素至li元素中；
+//先清空ul的子元素，不然会重叠
+leftBtnIn.onclick = function(){
+  if(reg.test(enterNum.value)){
+    alert("有非法字符，请重新输入数字！")
+  }
+  else{
+      if(enterNum.value<10 || enterNum.value>100){
+        alert("数字不在规定范围内，请重新输入！")
+      }
+      else{
+      alertLen(numArr);
+      box.innerHTML = "";
+      addFirst(numArr);
+      printArr(numArr);
+    }
+  }
+}
+
+rightBtnIn.onclick = function(){
+  if(reg.test(enterNum.value)){
+    alert("有非法字符，请重新输入数字！")
+  }
+  else{
+      if(enterNum.value<10 || enterNum.value>100){
+        alert("数字不在规定范围内，请重新输入！")
+      }
+      else{
+      alertLen(numArr);
+      box.innerHTML = "";
+      addLast(numArr);
+      printArr(numArr);
+    }
+  }
+}
+
+//点击删除btn 有三个函数 一个是打印数组的每一个元素至li元素中 一个是alert
+leftBtnOut.onclick = function(){
+  alert("删除的是第一位：" + numArr.shift());
+  box.innerHTML = "";
+  printArr(numArr);
+}
+
+rightBtnOut.onclick = function(){
+  alert("删除的是最后一位：" + numArr.pop());
+  box.innerHTML = "";
+  printArr(numArr);
+}
+
+sortBtn.onclick = function(){
+  numArr.sort(function(a, b){
+    return a[1] - b[1];
+  });
+  printArr(numArr);
+}
+
+//点击任一一个红框，该框被删除
+//https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html
+
+box.addEventListener("click", function(e){
+  //删除该点击li节点
+  if(e.target && e.target.nodeName.toUpperCase() == "LI"){
+  var tar = parseInt(e.target.getAttribute("id"));
+  numArr.splice(tar,1);
+  printArr(numArr); 
+  return numArr;
+  }
+});
+
+</script>
+</body>
+</html>
