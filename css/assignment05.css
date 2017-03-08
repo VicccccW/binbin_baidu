@@ -1,0 +1,54 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font: 15px "宋体","Arial","sans-serif","Tahoma";
+}
+
+div{
+	margin: 5px 0;
+}
+
+.wrapper{
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.wrapper div span{
+	display: inline-block;
+	width: 200px;
+	text-align: right;
+}
+
+.show{
+	text-align: center;
+	border: 1px solid grey;
+	height: 520px;
+	width: 90%;
+	border-radius: 25px;
+	margin: 0 auto;
+	padding: 10px;
+	display:flex;
+    justify-content: center; /*让红色柱子从中间显示*/
+
+}
+
+.left{
+	display: inline-block;
+	margin-left: -5px;
+}
+
+#box{
+    display:flex;
+    align-items: flex-end;
+    border-bottom: 2px solid black;
+}
+
+#box li{
+	display: inline-block;
+	list-style: none;
+	background-color: red;	
+	margin: 2px;
+	color: white;
+	width: 25px;	
+}
