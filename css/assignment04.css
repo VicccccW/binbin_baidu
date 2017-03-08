@@ -1,0 +1,34 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font: 15px "宋体","Arial","sans-serif","Tahoma";
+}
+
+div{
+	margin: 5px 0;
+}
+
+.wrapper{
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.wrapper div span{
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+
+.left{
+	margin-left: -5px;
+}
+
+#box li{
+	display: inline-block;
+	list-style: none;
+	background-color: red;
+	padding: 10px;
+	margin: 2px;
+	color: white;
+}
