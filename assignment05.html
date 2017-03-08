@@ -76,6 +76,13 @@ function printArr(arr){
   box.innerHTML = content;
 }
 
+function sortArr(arr){
+  arr.sort(function(a, b){
+    return a[1] - b[1];
+  });
+  return arr;
+}
+
 //点击添加btn 有两个函数 一个是返回新数组 一个是打印数组的每一个元素至li元素中；
 //先清空ul的子元素，不然会重叠
 leftBtnIn.onclick = function(){
@@ -126,9 +133,7 @@ rightBtnOut.onclick = function(){
 }
 
 sortBtn.onclick = function(){
-  numArr.sort(function(a, b){
-    return a[1] - b[1];
-  });
+  sortArr(numArr);
   printArr(numArr);
 }
 
