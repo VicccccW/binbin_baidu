@@ -1,0 +1,156 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 04</title>
+    <link type="text/css" rel="stylesheet" href="css/assignment04.css">
+  </head>
+<body>
+
+<div class="wrapper">
+  <div>
+    <label><span>请输入数字：</span><input type="text" class="text" size="20"></label>
+  </div>
+  <div>
+    <span></span>
+    <button id="btn-left-in" class="left">左侧入</button>
+    <button id="btn-right-in" class="right">右侧入</button>
+
+  </div>
+  <div>
+    <span></span>
+    <button id="btn-left-out" class="left">左侧出</button>
+    <button id="btn-right-out" class="right">右侧出</button> 
+   </div>
+
+<ul id="box">
+</ul>
+
+<!--测试代码>
+<button id="btn-test">此时数组长度</button> 
+<p id="test"></p>
+<-->
+<script type="text/javascript">
+
+//用正则函数 判断是否输入的是数字
+//失去焦点事件 是数字 则提示“输入正确，请点击任意按钮”
+//不是数字，则在下面一行一句提示，“输入错误，请输入数字”
+//判断的方式很多 1. 输入的时候keyup 立刻得到输入的内容 进行正则匹配 不匹配则提示重新输入，并且无法点击按钮。 2. 在输入完，点击左加/右加按钮时候，进行验证，不合格则提示，合格则继续输入
+//本例考虑实际输入情况，都是输入完直接点按钮，故在按钮上进行if判断。
+
+var reg = /\D/g;
+
+/*
+大概的逻辑实现：
+有一个空数组
+输入一个数字
+得到这个数字
+点击左侧入，则这个数字添加到数组第一个位 unshift()方法 返回的是数组的新长度
+点击右侧入，则这个数字添加到数组的最后一位 push()方法 返回新的长度
+点击左侧出，删除最左边一个 shift()方法 返回删除的元素 alert 返回值
+点击右侧出，删除最右边一个 pop()方法 返回删除的元素 alert 返回值
+打印数组 每一个元素都放到li标签中 li标签横向排列 背景红色
+
+*/
+
+var numArr = new Array();
+var enterNum = document.getElementsByTagName("input")[0];
+var leftBtnIn = document.getElementById("btn-left-in");
+var leftBtnOut = document.getElementById("btn-left-out");
+var rightBtnIn = document.getElementById("btn-right-in");
+var rightBtnOut = document.getElementById("btn-right-out");
+var box = document.getElementById("box");
+
+//var testBtn = document.getElementById("btn-test");
+
+//向数组的第一位增加一个内容 返回新数组
+function addFirst(arr){
+  arr.unshift(enterNum.value);
+  return arr;
+}
+
+//向数组的最后一位增加一个内容 返回新数组
+function addLast(arr){
+  arr.push(enterNum.value);
+  return arr;
+}
+
+function printArr(arr){
+  /*方法1
+  for(var i = 0; i<arr.length; i++){
+    var newL = document.createElement("li");
+    var num = document.createTextNode(arr[i]);
+    newL.appendChild(num);
+    box.appendChild(newL);
+  }
+  */
+  //方法2
+  var content = " ";
+  for (var i = 0; i<arr.length; i++){
+    content+="<li id='" + i + "'>" + arr[i] + " </li>";
+  }
+  box.innerHTML = content;
+}
+
+//点击添加btn 有两个函数 一个是返回新数组 一个是打印数组的每一个元素至li元素中；
+//先清空ul的子元素，不然会重叠
+leftBtnIn.onclick = function(){
+  if(reg.test(enterNum.value)){
+    alert("输入错误，请重新输入！")
+  }
+  else{
+    box.innerHTML = "";
+    addFirst(numArr);
+    printArr(numArr);
+  }
+}
+
+rightBtnIn.onclick = function(){
+  if(reg.test(enterNum.value)){
+    alert("输入错误，请重新输入！")
+  }
+  else{
+    box.innerHTML = "";
+    addLast(numArr);
+    printArr(numArr);
+  }
+}
+
+//点击删除btn 有三个函数 一个是打印数组的每一个元素至li元素中 一个是alert
+leftBtnOut.onclick = function(){
+  alert("删除的是第一位：" + numArr.shift());
+  box.innerHTML = "";
+  printArr(numArr);
+}
+
+rightBtnOut.onclick = function(){
+  alert("删除的是最后一位：" + numArr.pop());
+  box.innerHTML = "";
+  printArr(numArr);
+}
+
+//点击任一一个红框，该框被删除
+//https://www.cnblogs.com/owenChen/archive/2013/02/18/2915521.html
+
+      box.addEventListener("click", function(e){
+      //删除该点击li节点
+      if(e.target && e.target.nodeName.toUpperCase() == "LI"){
+      var tar = parseInt(e.target.getAttribute("id"));
+      numArr.splice(tar,1);
+      printArr(numArr); 
+      return numArr;
+    }
+    
+  });
+
+
+/* 测试
+function myF(){
+  document.getElementById("test").innerHTML = numArr.length;
+}
+
+testBtn.onclick = function(){myF()}
+*/
+</script>
+</body>
+</html>
